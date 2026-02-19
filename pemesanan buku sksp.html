@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembelian Buku SKSP - Portal Pembelajaran</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .book-card { transition: all 0.3s ease; }
+        .book-card:hover { transform: translateY(-5px); }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <h1 class="text-5xl md:text-6xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-4">
+                📚 Pembelian Buku SKSP
+            </h1>
+            <p class="text-xl text-gray-700 max-w-2xl mx-auto">Portal Pembelajaran Buku dengan Format Kelas Terstruktur</p>
+        </div>
+
+        <!-- Info Kelas -->
+        <section class="bg-white/80 backdrop-blur-xl shadow-2xl rounded-3xl p-8 md:p-12 mb-12 border border-white/50">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Informasi Kelas</h2>
+            <div class="grid md:grid-cols-3 gap-6 text-center">
+                <div>
+                    <label class="block text-lg font-semibold text-gray-700 mb-2">Nama Kelas:</label>
+                    <input type="text" id="kelas" placeholder="Contoh: Kelas Bahasa Indonesia XII IPS 1" class="w-full p-4 border-2 border-indigo-200 rounded-xl focus:border-purple-400 focus:outline-none text-center font-medium">
+                </div>
+                <div>
+                    <label class="block text-lg font-semibold text-gray-700 mb-2">Penanggung Jawab:</label>
+                    <input type="text" id="penanggung" placeholder="Nama Penanggung Jawab" class="w-full p-4 border-2 border-indigo-200 rounded-xl focus:border-purple-400 focus:outline-none text-center font-medium">
+                </div>
+                <div>
+                    <label class="block text-lg font-semibold text-gray-700 mb-2">Dosen Pengampu:</label>
+                    <input type="text" id="dosen" placeholder="Nama Dosen Pengampu" class="w-full p-4 border-2 border-indigo-200 rounded-xl focus:border-purple-400 focus:outline-none text-center font-medium">
+                </div>
+            </div>
+        </section>
+
+        <!-- Buku List -->
+        <section class="mb-16">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Daftar Buku Tersedia</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="book-card bg-white shadow-xl rounded-2xl p-6 border border-white/50">
+                    <div class="text-4xl mb-4">📖</div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Kemahiran Bahasa Indonesia</h3>
+                    <p class="text-indigo-600 font-bold text-2xl mb-4">Rp 75.000</p>
+                    <input type="number" id="qty1" min="0" value="0" class="w-full p-3 border-2 border-gray-200 rounded-xl text-center text-lg font-bold focus:border-indigo-400" onchange="hitungTotal()">
+                </div>
+                <div class="book-card bg-white shadow-xl rounded-2xl p-6 border border-white/50">
+                    <div class="text-4xl mb-4">✍️</div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Creative Writing</h3>
+                    <p class="text-indigo-600 font-bold text-2xl mb-4">Rp 75.000</p>
+                    <input type="number" id="qty2" min="0" value="0" class="w-full p-3 border-2 border-gray-200 rounded-xl text-center text-lg font-bold focus:border-indigo-400" onchange="hitungTotal()">
+                </div>
+                <div class="book-card bg-white shadow-xl rounded-2xl p-6 border border-white/50">
+                    <div class="text-4xl mb-4">🔍</div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Analisis Struktur Semiotik</h3>
+                    <p class="text-indigo-600 font-bold text-2xl mb-4">Rp 55.000</p>
+                    <input type="number" id="qty3" min="0" value="0" class="w-full p-3 border-2 border-gray-200 rounded-xl text-center text-lg font-bold focus:border-indigo-400" onchange="hitungTotal()">
+                </div>
+                <div class="book-card bg-white shadow-xl rounded-2xl p-6 border border-white/50">
+                    <div class="text-4xl mb-4">🌿</div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Kubah Hijau</h3>
+                    <p class="text-indigo-600 font-bold text-2xl mb-4">Rp 55.000</p>
+                    <input type="number" id="qty4" min="0" value="0" class="w-full p-3 border-2 border-gray-200 rounded-xl text-center text-lg font-bold focus:border-indigo-400" onchange="hitungTotal()">
+                </div>
+            </div>
+        </section>
+
+        <!-- Ringkasan Pesanan -->
+        <section class="bg-gradient-to-r from-purple-500 to-indigo-600 text-white shadow-2xl rounded-3xl p-8 md:p-12 mb-12">
+            <h2 class="text-3xl font-bold mb-6 text-center">Ringkasan Pesanan</h2>
+            <div class="space-y-3 mb-8">
+                <div class="flex justify-between text-xl">
+                    <span>Total Harga:</span>
+                    <span id="totalHarga" class="font-bold text-2xl">Rp 0</span>
+                </div>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <input type="text" id="nama" placeholder="Nama Lengkap Anda" class="flex-1 p-4 rounded-xl text-gray-900 font-medium focus:outline-none focus:ring-4 focus:ring-white/50">
+                <input type="tel" id="wa" placeholder="Nomor WhatsApp" class="flex-1 p-4 rounded-xl text-gray-900 font-medium focus:outline-none focus:ring-4 focus:ring-white/50">
+            </div>
+            <button onclick="kirimPesanan()" class="w-full mt-8 bg-white text-purple-600 font-bold py-5 px-8 rounded-2xl text-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                📱 Kirim Pesanan via WhatsApp
+            </button>
+        </section>
+
+        <footer class="text-center text-gray-500 text-sm">
+            <p>© 2026 Pembelian Buku SKSP. Dibuat dengan ❤️ untuk pembelajaran berkualitas.</p>
+        </footer>
+    </div>
+
+    <script>
+        const hargaBuku = [75000, 75000, 55000, 55000];
+
+        function hitungTotal() {
+            let total = 0;
+            for (let i = 1; i <= 4; i++) {
+                const qty = parseInt(document.getElementById('qty' + i).value) || 0;
+                total += qty * hargaBuku[i-1];
+            }
+            document.getElementById('totalHarga').textContent = 'Rp ' + total.toLocaleString('id-ID');
+            return total;
+        }
+
+        function kirimPesanan() {
+            const kelas = document.getElementById('kelas').value || 'Tidak diisi';
+            const penanggung = document.getElementById('penanggung').value || 'Tidak diisi';
+            const dosen = document.getElementById('dosen').value || 'Tidak diisi';
+            const nama = document.getElementById('nama').value || 'Tidak diisi';
+            const wa = document.getElementById('wa').value || 'Tidak diisi';
+            const total = hitungTotal();
+
+            let pesanan = `*Pesanan Buku SKSP*
+
+`;
+            pesanan += `*Info Kelas:*
+`;
+            pesanan += `Kelas: ${kelas}
+`;
+            pesanan += `Penanggung Jawab: ${penanggung}
+`;
+            pesanan += `Dosen Pengampu: ${dosen}
+
+`;
+            pesanan += `*Detail Pesanan:*
+`;
+
+            const qty1 = document.getElementById('qty1').value || 0;
+            if (qty1 > 0) pesanan += `Kemahiran Bahasa Indonesia: ${qty1} x Rp75.000
+`;
+            const qty2 = document.getElementById('qty2').value || 0;
+            if (qty2 > 0) pesanan += `Creative Writing: ${qty2} x Rp75.000
+`;
+            const qty3 = document.getElementById('qty3').value || 0;
+            if (qty3 > 0) pesanan += `Analisis Struktur Semiotik: ${qty3} x Rp55.000
+`;
+            const qty4 = document.getElementById('qty4').value || 0;
+            if (qty4 > 0) pesanan += `Kubah Hijau: ${qty4} x Rp55.000
+
+`;
+            pesanan += `*Total: Rp ${total.toLocaleString('id-ID')}*
+
+`;
+            pesanan += `*Pemesan:*
+`;
+            pesanan += `Nama: ${nama}
+`;
+            pesanan += `WA: ${wa}`;
+
+            const waUrl = `https://wa.me/6283869614114?text=${encodeURIComponent(pesanan)}`;
+            window.open(waUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
